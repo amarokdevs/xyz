@@ -248,12 +248,12 @@ export default function Home() {
                 ) : (
                     <div className="flex items-center justify-center h-full">
                       {isDone ? (
-                        <div className="flex items-center text-green-600 font-medium">
-                          <CheckCircle className="h-5 w-5"/>
-                          <span className="ml-2">{status}</span>
+                        <div className="flex items-center text-green-600 font-medium whitespace-nowrap truncate">
+                          <CheckCircle className="h-5 w-5 flex-shrink-0"/>
+                          <span className="ml-2 truncate">{status}</span>
                         </div>
                       ) : (
-                        <p className="text-gray-500">{file ? file.name : 'Select a file to start.'}</p>
+                        <p className="text-gray-500 truncate">{file ? file.name : 'Select a file to start.'}</p>
                       )}
                     </div>
                 )}
@@ -271,3 +271,5 @@ export default function Home() {
     </>
   );
 }
+
+    
