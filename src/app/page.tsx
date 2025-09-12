@@ -82,13 +82,13 @@ export default function Home() {
       @keyframes gradient-animation { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
       .container { z-index: 1; position: relative; text-align: center; background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); max-width: 90%; width: 100%; max-width: 42rem; }
       h1 { margin-top: 0; font-size: 2.25rem; line-height: 2.5rem; color: #1f2937; font-weight: 500;}
-      p { word-break: break-all; margin-top: 0.5rem; color: #6b7280; }
+      p { word-break: break-word; margin-top: 0.5rem; color: #6b7280; }
       button { font-size: 1rem; padding: 1rem 1.5rem; border-radius: 9999px; border: none; background-color: #000; color: #fff; cursor: pointer; transition: background-color 0.3s, transform 0.2s; font-weight: 500; margin-top: 1.5rem; }
       button:hover:not(:disabled) { background-color: #1f2937; transform: translateY(-2px); }
       button:disabled { background-color: #9ca3af; cursor: not-allowed; }
       #progress-bar { width: 100%; height: 0.625rem; background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; margin-top: 1.5rem; display: none; }
       #progress-fill { width: 0%; height: 100%; background-color: #1f2937; transition: width 0.3s; }
-      .file-info { font-weight: 600; }
+      .file-info { font-weight: 600; color: #1f2937; }
       .credit { text-align: center; font-size: 0.75rem; color: #6b7280; margin-top: 1rem; }
     `;
 
@@ -96,7 +96,8 @@ export default function Home() {
     <div class="animated-gradient"></div>
     <div class="container">
       <h1>Download Your File</h1>
-      <p>Click the button below to download <strong class="file-info">${file.name}</strong></p>
+      <p>Click the button below to download</p>
+      <p><strong class="file-info">${file.name}</strong></p>
       <button onclick="download()">Download</button>
       <div id="progress-bar"><div id="progress-fill"></div></div>
       <p class="credit">Created By Deepak Dev ❤️</p>
@@ -270,5 +271,7 @@ export default function Home() {
     </>
   );
 }
+
+    
 
     
