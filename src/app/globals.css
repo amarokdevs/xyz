@@ -56,5 +56,34 @@
   }
   body {
     @apply bg-background text-foreground;
+    overflow: hidden;
+  }
+  .animated-gradient {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+          45deg,
+          #FFA07A, /* Light Salmon/Orange */
+          #FF4500, /* Orange Red */
+          #FFD700, /* Gold/Yellow */
+          #8A2BE2, /* Blue Violet/Purple */
+          #000000 /* Black */
+      );
+      background-size: 200% 200%;
+      animation: gradient-animation 25s ease-in-out infinite alternate;
+      filter: blur(50px);
+      z-index: -1;
+  }
+
+  @keyframes gradient-animation {
+      0% {
+          background-position: 0% 50%;
+      }
+      100% {
+          background-position: 100% 50%;
+      }
   }
 }

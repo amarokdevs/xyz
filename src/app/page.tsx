@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
@@ -10,7 +9,7 @@ import { UploadCloud, CheckCircle } from 'lucide-react';
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
-  const [status, setStatus] = useState('Click or drag a file to start.');
+  const [status, setStatus] = useState('Select a file to start.');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -18,7 +17,7 @@ export default function Home() {
   const updateFile = (selectedFile: File | null) => {
     if (isProcessing || !selectedFile) return;
     setFile(selectedFile);
-    setStatus(`Ready to process: ${selectedFile.name}`);
+    setStatus(`Ready: ${selectedFile.name}`);
     setProgress(0);
     setIsDone(false);
   }
@@ -195,15 +194,18 @@ export default function Home() {
   };
   
   return (
-    <main className="flex items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-lg shadow-2xl rounded-2xl overflow-hidden border-none">
-        <CardHeader className="bg-card p-6 border-b">
-          <CardTitle className="text-3xl font-bold text-center text-foreground">File To HTML Converter</CardTitle>
-          <CardDescription className="text-center text-muted-foreground pt-2">Embed any file into a single, portable HTML document.</CardDescription>
-        </CardHeader>
-        <CardContent className="p-8 space-y-6">
-          <div 
-            className={`relative w-full h-48 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-secondary' : 'cursor-pointer hover:border-primary hover:bg-accent'}`}
+    <main className="min-h-screen flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 w-full max-w-4xl flex flex-col items-center">
+        {/* Header */}
+        <div className="text-center space-y-2 mb-8">
+            <h1 className="text-4xl md:text-5xl font-medium text-gray-700">File to HTML</h1>
+            <p className="text-gray-500 font-normal">Embed any file into a single, portable HTML document.</p>
+        </div>
+
+        {/* File Conversion Section */}
+        <div className="w-full md:w-3/4 lg:w-2/3 space-y-6">
+           <div 
+            className={`relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-blue-400 hover:bg-blue-50'}`}
             onClick={() => !isProcessing && fileInputRef.current?.click()}
             onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
             onDrop={handleDrop}
@@ -217,11 +219,11 @@ export default function Home() {
               disabled={isProcessing}
             />
             <div className="text-center p-4">
-              <UploadCloud className={`mx-auto h-12 w-12 transition-colors duration-300 ${isProcessing ? 'text-muted-foreground/50' : 'text-muted-foreground'}`} />
-              <p className="mt-4 text-sm text-foreground">
-                <span className={`font-semibold ${isProcessing ? 'text-muted-foreground' : 'text-primary'}`}>Click to upload</span> or drag and drop
+              <UploadCloud className={`mx-auto h-10 w-10 transition-colors duration-300 ${isProcessing ? 'text-gray-400' : 'text-gray-500'}`} />
+              <p className="mt-3 text-sm text-gray-600">
+                <span className={`font-semibold ${isProcessing ? 'text-gray-500' : 'text-blue-600'}`}>Click to upload</span> or drag and drop
               </p>
-              <p className="text-xs text-muted-foreground mt-1">Unlimited file size. Your files are processed in-browser.</p>
+              <p className="text-xs text-gray-500 mt-1">Your files are processed in-browser.</p>
             </div>
           </div>
 
@@ -229,7 +231,7 @@ export default function Home() {
             {isProcessing ? (
                 <div className="space-y-3">
                     <Progress value={progress} className="w-full h-2.5" />
-                    <p className="text-sm text-muted-foreground animate-pulse">{status}</p>
+                    <p className="text-sm text-gray-500 animate-pulse">{status}</p>
                 </div>
             ) : (
                 <div className="flex items-center justify-center h-full">
@@ -239,18 +241,17 @@ export default function Home() {
                       <span>{status}</span>
                     </div>
                   ) : (
-                    <p className="text-muted-foreground">{status}</p>
+                    <p className="text-gray-500">{status}</p>
                   )}
                 </div>
             )}
           </div>
-        </CardContent>
-        <CardFooter className="p-6 bg-secondary/50">
-          <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full font-bold text-base rounded-xl shadow-lg">
-            {isProcessing ? 'Generating...' : (isDone ? 'Generate Another File' : 'Generate & Download HTML')}
+          
+          <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-4 px-6 rounded-full font-medium transition-transform transform hover:scale-105 shadow-sm text-base">
+            {isProcessing ? 'Generating...' : (isDone ? 'Generate Another' : 'Generate & Download HTML')}
           </Button>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </main>
   );
 }
