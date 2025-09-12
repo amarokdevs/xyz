@@ -1,10 +1,11 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
-import { UploadCloud, CheckCircle } from 'lucide-react';
+import { UploadCloud, CheckCircle, File, Instagram, Youtube, Send, Globe } from 'lucide-react';
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -194,64 +195,112 @@ export default function Home() {
   };
   
   return (
-    <main className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 w-full max-w-4xl flex flex-col items-center">
-        {/* Header */}
-        <div className="text-center space-y-2 mb-8">
-            <h1 className="text-4xl md:text-5xl font-medium text-gray-700">File to HTML</h1>
-            <p className="text-gray-500 font-normal">Embed any file into a single, portable HTML document.</p>
-        </div>
+    <>
+      <head>
+          <style>
+              {`
+                  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap');
 
-        {/* File Conversion Section */}
-        <div className="w-full md:w-3/4 lg:w-2/3 space-y-6">
-           <div 
-            className={`relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-blue-400 hover:bg-blue-50'}`}
-            onClick={() => !isProcessing && fileInputRef.current?.click()}
-            onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
-            onDrop={handleDrop}
-          >
-            <Input
-              id="file-upload"
-              ref={fileInputRef}
-              type="file"
-              onChange={handleFileChange}
-              className="sr-only"
-              disabled={isProcessing}
-            />
-            <div className="text-center p-4">
-              <UploadCloud className={`mx-auto h-10 w-10 transition-colors duration-300 ${isProcessing ? 'text-gray-400' : 'text-gray-500'}`} />
-              <p className="mt-3 text-sm text-gray-600">
-                <span className={`font-semibold ${isProcessing ? 'text-gray-500' : 'text-blue-600'}`}>Click to upload</span> or drag and drop
-              </p>
-              <p className="text-xs text-gray-500 mt-1">Your files are processed in-browser.</p>
+                  body {
+                      font-family: 'DM Sans', sans-serif;
+                      overflow: hidden;
+                  }
+
+                  .animated-gradient {
+                      position: fixed;
+                      top: -50%;
+                      left: -50%;
+                      width: 200%;
+                      height: 200%;
+                      background: linear-gradient(
+                          45deg,
+                          #FFCA28, /* Firebase Amber */
+                          #F57C00, /* Firebase Deep Orange */
+                          #039BE5, /* Firebase Blue */
+                          #FFA000  /* Firebase Orange */
+                      );
+                      background-size: 200% 200%;
+                      animation: gradient-animation 25s ease-in-out infinite alternate;
+                      filter: blur(50px);
+                      z-index: -1;
+                  }
+
+                  @keyframes gradient-animation {
+                      0% {
+                          background-position: 0% 50%;
+                      }
+                      100% {
+                          background-position: 100% 50%;
+                      }
+                  }
+
+                  .content-container {
+                      z-index: 1;
+                      position: relative;
+                  }
+              `}
+          </style>
+      </head>
+      <main className="min-h-screen flex items-center justify-center p-4">
+        <div className="animated-gradient"></div>
+        <div className="content-container bg-white rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 w-full max-w-4xl flex flex-col items-center">
+            {/* Header */}
+            <div className="text-center space-y-2 mb-8">
+                <h1 className="text-4xl md:text-5xl font-medium text-gray-700">File to HTML</h1>
+                <p className="text-gray-500 font-normal">Embed any file into a single, portable HTML document.</p>
             </div>
-          </div>
 
-          <div className="h-16 pt-2 text-center">
-            {isProcessing ? (
-                <div className="space-y-3">
-                    <Progress value={progress} className="w-full h-2.5" />
-                    <p className="text-sm text-gray-500 animate-pulse">{status}</p>
+            {/* File Conversion Section */}
+            <div className="w-full md:w-3/4 lg:w-2/3 space-y-6">
+              <div 
+                className={`relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-primary hover:bg-accent'}`}
+                onClick={() => !isProcessing && fileInputRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                onDrop={handleDrop}
+              >
+                <Input
+                  id="file-upload"
+                  ref={fileInputRef}
+                  type="file"
+                  onChange={handleFileChange}
+                  className="sr-only"
+                  disabled={isProcessing}
+                />
+                <div className="text-center p-4">
+                  <UploadCloud className={`mx-auto h-10 w-10 transition-colors duration-300 ${isProcessing ? 'text-gray-400' : 'text-primary'}`} />
+                  <p className="mt-3 text-sm text-gray-600">
+                    <span className={`font-semibold ${isProcessing ? 'text-gray-500' : 'text-primary'}`}>Click to upload</span> or drag and drop
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">Your files are processed in-browser.</p>
                 </div>
-            ) : (
-                <div className="flex items-center justify-center h-full">
-                  {isDone ? (
-                    <div className="flex items-center text-green-600 font-medium">
-                      <CheckCircle className="h-5 w-5 mr-2"/>
-                      <span>{status}</span>
+              </div>
+
+              <div className="h-16 pt-2 text-center">
+                {isProcessing ? (
+                    <div className="space-y-3">
+                        <Progress value={progress} className="w-full h-2.5" />
+                        <p className="text-sm text-gray-500 animate-pulse">{status}</p>
                     </div>
-                  ) : (
-                    <p className="text-gray-500">{status}</p>
-                  )}
-                </div>
-            )}
-          </div>
-          
-          <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-4 px-6 rounded-full font-medium transition-transform transform hover:scale-105 shadow-sm text-base">
-            {isProcessing ? 'Generating...' : (isDone ? 'Generate Another' : 'Generate & Download HTML')}
-          </Button>
+                ) : (
+                    <div className="flex items-center justify-center h-full">
+                      {isDone ? (
+                        <div className="flex items-center text-green-600 font-medium">
+                          <CheckCircle className="h-5 w-5 mr-2"/>
+                          <span>{status}</span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">{file ? file.name : 'Select a file to start.'}</p>
+                      )}
+                    </div>
+                )}
+              </div>
+              
+              <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full text-white py-4 px-6 rounded-full font-medium transition-transform transform hover:scale-105 shadow-sm text-base">
+                {isProcessing ? 'Generating...' : (isDone ? 'Generate Another' : 'Generate & Download HTML')}
+              </Button>
+            </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
