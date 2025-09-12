@@ -208,7 +208,7 @@ export default function Home() {
             {/* File Conversion Section */}
             <div className="w-full md:w-3/4 lg:w-2/3 space-y-6">
               <div 
-                className={`relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-black hover:bg-gray-50'}`}
+                className={`group relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-black hover:bg-gray-50'}`}
                 onClick={() => !isProcessing && fileInputRef.current?.click()}
                 onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
                 onDrop={handleDrop}
@@ -253,6 +253,9 @@ export default function Home() {
               <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full text-white bg-black hover:bg-gray-800 py-4 px-6 rounded-full font-medium transition-transform transform hover:scale-105 shadow-sm text-base">
                 {isProcessing ? 'Generating...' : (isDone ? 'Generate Another' : 'Generate & Download HTML')}
               </Button>
+              <p className="text-center text-xs text-gray-500 mt-2">
+                Created By Deepak Dev ❤️
+              </p>
             </div>
         </div>
       </main>
