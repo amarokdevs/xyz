@@ -208,7 +208,7 @@ export default function Home() {
             {/* File Conversion Section */}
             <div className="w-full md:w-3/4 lg:w-2/3 space-y-6">
               <div 
-                className={`relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-primary hover:bg-accent'}`}
+                className={`relative w-full h-40 border-2 border-dashed rounded-lg flex flex-col justify-center items-center transition-all duration-300 ${isProcessing ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer hover:border-black hover:bg-gray-50'}`}
                 onClick={() => !isProcessing && fileInputRef.current?.click()}
                 onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
                 onDrop={handleDrop}
@@ -222,9 +222,9 @@ export default function Home() {
                   disabled={isProcessing}
                 />
                 <div className="text-center p-4">
-                  <UploadCloud className={`mx-auto h-10 w-10 transition-colors duration-300 ${isProcessing ? 'text-gray-400' : 'text-primary'}`} />
+                  <UploadCloud className={`mx-auto h-10 w-10 transition-colors duration-300 ${isProcessing ? 'text-gray-400' : 'text-gray-500 group-hover:text-black'}`} />
                   <p className="mt-3 text-sm text-gray-600">
-                    <span className={`font-semibold ${isProcessing ? 'text-gray-500' : 'text-primary'}`}>Click to upload</span> or drag and drop
+                    <span className={`font-semibold ${isProcessing ? 'text-gray-500' : 'text-gray-600 group-hover:text-black'}`}>Click to upload</span> or drag and drop
                   </p>
                   <p className="text-xs text-gray-500 mt-1">Your files are processed in-browser.</p>
                 </div>
