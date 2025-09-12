@@ -253,7 +253,7 @@ export default function Home() {
                                 <CheckCircle className="h-5 w-5 flex-shrink-0 mr-2"/>
                                 <span className="truncate">{file?.name}.html</span>
                             </div>
-                            <p className="text-sm text-green-600 whitespace-nowrap truncate">has been generated and downloaded.</p>
+                            <p className="text-sm text-green-600 whitespace-nowrap truncate">html has been generated and downloaded.</p>
                         </div>
                       ) : (
                         <p className="text-gray-500 truncate">{file ? file.name : 'Select a file to start.'}</p>
