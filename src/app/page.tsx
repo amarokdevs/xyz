@@ -80,16 +80,18 @@ export default function Home() {
       body { font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; box-sizing: border-box; flex-direction: column; overflow: hidden; }
       .animated-gradient { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, #FFA07A, #FF4500, #FFD700, #8A2BE2, #000000); background-size: 200% 200%; animation: gradient-animation 25s ease-in-out infinite alternate; filter: blur(50px); z-index: -1; }
       @keyframes gradient-animation { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-      .container { z-index: 1; position: relative; text-align: center; background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); max-width: 90%; width: 100%; max-width: 42rem; }
+      .container { z-index: 1; position: relative; text-align: center; background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); width: 100%; max-width: 42rem; padding: 2rem; }
       h1 { margin-top: 0; font-size: 2.25rem; line-height: 2.5rem; color: #1f2937; font-weight: 500;}
       p { word-break: break-word; margin-top: 0.5rem; color: #6b7280; text-align: center; }
-      button { font-size: 1rem; padding: 1rem 1.5rem; border-radius: 9999px; border: none; background-color: #000; color: #fff; cursor: pointer; transition: background-color 0.3s, transform 0.2s; font-weight: 500; margin-top: 1.5rem; }
-      button:hover:not(:disabled) { background-color: #1f2937; transform: translateY(-2px); }
+      button { font-size: 1rem; padding: 1rem 1.5rem; border-radius: 9999px; border: none; background-color: #000; color: #fff; cursor: pointer; transition: background-color 0.3s, transform 0.2s; font-weight: 500; margin-top: 1.5rem; width: 100%; font-size: 1rem; transform: scale(1.0); transition: transform 0.2s; }
+      button:hover:not(:disabled) { background-color: #1f2937; transform: translateY(-2px) scale(1.05); }
       button:disabled { background-color: #9ca3af; cursor: not-allowed; }
       #progress-bar { width: 100%; height: 0.625rem; background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; margin-top: 1.5rem; display: none; }
       #progress-fill { width: 0%; height: 100%; background-color: #1f2937; transition: width 0.3s; }
       .file-info { font-weight: 600; color: #1f2937; }
       .credit { text-align: center; font-size: 0.75rem; color: #6b7280; margin-top: 1rem; }
+      @media (min-width: 640px) { .container { padding: 3rem; } }
+      @media (min-width: 768px) { .container { padding: 4rem; } }
     `;
 
     blobParts.push(new Blob([`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${file.name} - Embedded File</title><style>${generatedPageStyle}</style></head><body>
@@ -274,3 +276,5 @@ export default function Home() {
     </>
   );
 }
+
+    
