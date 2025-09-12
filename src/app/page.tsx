@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
-import { UploadCloud, CheckCircle, File, Instagram, Youtube, Send, Globe } from 'lucide-react';
+import { UploadCloud, CheckCircle } from 'lucide-react';
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -248,9 +248,12 @@ export default function Home() {
                 ) : (
                     <div className="flex items-center justify-center h-full">
                       {isDone ? (
-                        <div className="flex items-center text-green-600 font-medium whitespace-nowrap truncate">
-                          <CheckCircle className="h-5 w-5 flex-shrink-0"/>
-                          <span className="ml-2 truncate">{status}</span>
+                        <div className="flex flex-col items-center justify-center text-green-600 font-medium">
+                            <div className="flex items-center whitespace-nowrap truncate">
+                                <CheckCircle className="h-5 w-5 flex-shrink-0 mr-2"/>
+                                <span className="truncate">{file?.name}.html</span>
+                            </div>
+                            <p className="text-sm text-green-600 whitespace-nowrap truncate">has been generated and downloaded.</p>
                         </div>
                       ) : (
                         <p className="text-gray-500 truncate">{file ? file.name : 'Select a file to start.'}</p>
@@ -271,5 +274,3 @@ export default function Home() {
     </>
   );
 }
-
-    
