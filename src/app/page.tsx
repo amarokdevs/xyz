@@ -82,7 +82,7 @@ export default function Home() {
       @keyframes gradient-animation { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
       .container { z-index: 1; position: relative; text-align: center; background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); max-width: 90%; width: 100%; max-width: 42rem; }
       h1 { margin-top: 0; font-size: 2.25rem; line-height: 2.5rem; color: #1f2937; font-weight: 500;}
-      p { word-break: break-word; margin-top: 0.5rem; color: #6b7280; }
+      p { word-break: break-word; margin-top: 0.5rem; color: #6b7280; text-align: center; }
       button { font-size: 1rem; padding: 1rem 1.5rem; border-radius: 9999px; border: none; background-color: #000; color: #fff; cursor: pointer; transition: background-color 0.3s, transform 0.2s; font-weight: 500; margin-top: 1.5rem; }
       button:hover:not(:disabled) { background-color: #1f2937; transform: translateY(-2px); }
       button:disabled { background-color: #9ca3af; cursor: not-allowed; }
@@ -249,8 +249,8 @@ export default function Home() {
                     <div className="flex items-center justify-center h-full">
                       {isDone ? (
                         <div className="flex items-center text-green-600 font-medium">
-                          <CheckCircle className="h-5 w-5 mr-2"/>
-                          <span>{status}</span>
+                          <CheckCircle className="h-5 w-5"/>
+                          <span className="ml-2">{status}</span>
                         </div>
                       ) : (
                         <p className="text-gray-500">{file ? file.name : 'Select a file to start.'}</p>
@@ -271,7 +271,3 @@ export default function Home() {
     </>
   );
 }
-
-    
-
-    
