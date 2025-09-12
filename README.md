@@ -1,4 +1,4 @@
-# Firebase Studio
+npm i @vercel/speed-insights# Firebase Studio
 
 This is a NextJS starter in Firebase Studio.
 

@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: 'File To HTML Converter',
@@ -23,6 +24,7 @@ export default function RootLayout({
         <div className="animated-gradient"></div>
         {children}
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
