@@ -92,13 +92,13 @@ export default function Home() {
     <p><strong>File:</strong> ${file.name}</p>
     <button onclick="download()">Download</button>
     <div id="progress-bar"><div id="progress-fill"></div></div>
-    </div><script id="data" type="application/json">\n`], { type: "text/html" }));
+    </div>\n`], { type: "text/html" }));
 
     while (offset < file.size) {
       const slice = file.slice(offset, offset + CHUNK_SIZE);
       const buffer = await slice.arrayBuffer();
       const b64 = base64ArrayBuffer(buffer);
-      blobParts.push(new Blob([b64 + "\n"], { type: "text/html" }));
+      blobParts.push(new Blob([`<script type="application/base64-chunk">${b64}</script>\n`], { type: "text/html" }));
 
       offset += CHUNK_SIZE;
       chunkIndex++;
@@ -110,7 +110,7 @@ export default function Home() {
       await new Promise(r => setTimeout(r, 1));
     }
 
-    const footerScript = `</script>
+    const footerScript = `
     <script>
     function b64ToByteArray(b64) {
       const bin = atob(b64);
@@ -132,19 +132,18 @@ export default function Home() {
       progressBar.style.display = 'block';
 
       try {
-        const text = document.getElementById('data').textContent.trim();
-        const lines = text.split('\\n');
-        const totalLines = lines.length;
+        const chunkScripts = document.querySelectorAll('script[type="application/base64-chunk"]');
+        const totalChunks = chunkScripts.length;
         const binaryArrays = [];
         
-        const DECODE_CHUNK_SIZE = 5; // Decode 5 lines at a time before yielding
+        for (let i = 0; i < totalChunks; i++) {
+          const chunkText = chunkScripts[i].textContent;
+          binaryArrays.push(b64ToByteArray(chunkText));
+          chunkScripts[i].remove(); // Free up memory
 
-        for (let i = 0; i < totalLines; i++) {
-          const c = lines[i];
-          binaryArrays.push(b64ToByteArray(c));
-
-          if (i % DECODE_CHUNK_SIZE === 0 || i === totalLines - 1) {
-            progressFill.style.width = ((i + 1) / totalLines * 100) + '%';
+          progressFill.style.width = ((i + 1) / totalChunks * 100) + '%';
+          
+          if (i % 5 === 0 || i === totalChunks - 1) {
             // Yield to the main thread to keep the UI responsive
             await new Promise(r => setTimeout(r, 0));
           }
