@@ -127,7 +127,7 @@ export default function Home() {
       const progressBar = document.getElementById('progress-bar');
       const progressFill = document.getElementById('progress-fill');
       
-      button.textContent = 'Decoding...';
+      button.textContent = 'Decoding file...';
       button.disabled = true;
       progressBar.style.display = 'block';
 
@@ -149,6 +149,7 @@ export default function Home() {
           }
         }
         
+        button.textContent = 'Assembling file...';
         const blob = new Blob(binaryArrays, {type: "${file.type || 'application/octet-stream'}"});
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -158,11 +159,13 @@ export default function Home() {
         document.body.removeChild(link);
         URL.revokeObjectURL(link.href);
 
-        button.textContent = 'Download Complete!';
+        button.innerHTML = '✅ Successfully Downloaded!';
+        progressBar.style.display = 'none';
+        progressFill.style.width = '0%';
+
       } catch (e) {
         button.textContent = 'Error Decoding';
         console.error(e);
-      } finally {
         setTimeout(() => {
           button.textContent = 'Download';
           button.disabled = false;
