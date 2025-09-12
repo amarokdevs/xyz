@@ -66,10 +66,10 @@
       height: 200%;
       background: linear-gradient(
           45deg,
-          #FF4500, /* Orange Red */
-          #FFD700, /* Gold/Yellow */
-          #8A2BE2, /* Blue Violet/Purple */
-          #000000 /* Black */
+          #FFCA28, /* Firebase Amber */
+          #F57C00, /* Firebase Deep Orange */
+          #039BE5, /* Firebase Blue */
+          #FFA000  /* Firebase Orange */
       );
       background-size: 200% 200%;
       animation: gradient-animation 25s ease-in-out infinite alternate;

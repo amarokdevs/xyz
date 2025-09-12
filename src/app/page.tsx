@@ -196,51 +196,6 @@ export default function Home() {
   
   return (
     <>
-      <head>
-          <style>
-              {`
-                  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap');
-
-                  body {
-                      font-family: 'DM Sans', sans-serif;
-                      overflow: hidden;
-                  }
-
-                  .animated-gradient {
-                      position: fixed;
-                      top: -50%;
-                      left: -50%;
-                      width: 200%;
-                      height: 200%;
-                      background: linear-gradient(
-                          45deg,
-                          #FFCA28, /* Firebase Amber */
-                          #F57C00, /* Firebase Deep Orange */
-                          #039BE5, /* Firebase Blue */
-                          #FFA000  /* Firebase Orange */
-                      );
-                      background-size: 200% 200%;
-                      animation: gradient-animation 25s ease-in-out infinite alternate;
-                      filter: blur(50px);
-                      z-index: -1;
-                  }
-
-                  @keyframes gradient-animation {
-                      0% {
-                          background-position: 0% 50%;
-                      }
-                      100% {
-                          background-position: 100% 50%;
-                      }
-                  }
-
-                  .content-container {
-                      z-index: 1;
-                      position: relative;
-                  }
-              `}
-          </style>
-      </head>
       <main className="min-h-screen flex items-center justify-center p-4">
         <div className="animated-gradient"></div>
         <div className="content-container bg-white rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 w-full max-w-4xl flex flex-col items-center">
