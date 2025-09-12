@@ -250,7 +250,7 @@ export default function Home() {
                 )}
               </div>
               
-              <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full text-white py-4 px-6 rounded-full font-medium transition-transform transform hover:scale-105 shadow-sm text-base">
+              <Button onClick={generateHTML} disabled={!file || isProcessing} size="lg" className="w-full text-white bg-black hover:bg-gray-800 py-4 px-6 rounded-full font-medium transition-transform transform hover:scale-105 shadow-sm text-base">
                 {isProcessing ? 'Generating...' : (isDone ? 'Generate Another' : 'Generate & Download HTML')}
               </Button>
             </div>
