@@ -112,7 +112,17 @@ export default function Home() {
 
     const footerScript = `</script>
     <script>
-    async function download(){
+    function b64ToByteArray(b64) {
+      const bin = atob(b64);
+      const len = bin.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = bin.charCodeAt(i);
+      }
+      return bytes;
+    }
+
+    async function download() {
       const button = document.querySelector('button');
       const progressBar = document.getElementById('progress-bar');
       const progressFill = document.getElementById('progress-fill');
@@ -122,28 +132,28 @@ export default function Home() {
       progressBar.style.display = 'block';
 
       try {
-        const text=document.getElementById('data').textContent.trim();
-        const lines=text.split('\\n');
+        const text = document.getElementById('data').textContent.trim();
+        const lines = text.split('\\n');
         const totalLines = lines.length;
-        const binaryArrays=[];
+        const binaryArrays = [];
+        
+        const DECODE_CHUNK_SIZE = 5; // Decode 5 lines at a time before yielding
 
-        for(let i=0; i < lines.length; i++) {
+        for (let i = 0; i < totalLines; i++) {
           const c = lines[i];
-          const bin=atob(c);
-          const len=bin.length;
-          const bytes=new Uint8Array(len);
-          for(let j=0; j<len; j++){bytes[j]=bin.charCodeAt(j);}
-          binaryArrays.push(bytes);
-          if (i % 5 === 0 || i === totalLines - 1) {
-            progressFill.style.width = ((i+1)/totalLines * 100) + '%';
+          binaryArrays.push(b64ToByteArray(c));
+
+          if (i % DECODE_CHUNK_SIZE === 0 || i === totalLines - 1) {
+            progressFill.style.width = ((i + 1) / totalLines * 100) + '%';
+            // Yield to the main thread to keep the UI responsive
             await new Promise(r => setTimeout(r, 0));
           }
         }
         
-        const blob=new Blob(binaryArrays,{type:"${file.type || 'application/octet-stream'}"});
-        const link=document.createElement('a');
-        link.href=URL.createObjectURL(blob);
-        link.download="${file.name}";
+        const blob = new Blob(binaryArrays, {type: "${file.type || 'application/octet-stream'}"});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = "${file.name}";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
