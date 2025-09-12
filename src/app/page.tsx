@@ -107,7 +107,7 @@ export default function Home() {
       setProgress(currentProgress);
       setStatus(`Encoding chunk ${chunkIndex} of ${totalChunks}...`);
       
-      await new Promise(r => setTimeout(r, 1));
+      await new Promise(r => setTimeout(r, 0));
     }
 
     const footerScript = `
@@ -143,7 +143,7 @@ export default function Home() {
 
           progressFill.style.width = ((i + 1) / totalChunks * 100) + '%';
           
-          if (i % 5 === 0 || i === totalChunks - 1) {
+          if (i % 10 === 0 || i === totalChunks - 1) {
             // Yield to the main thread to keep the UI responsive
             await new Promise(r => setTimeout(r, 0));
           }
