@@ -34,7 +34,12 @@ export default function Home() {
   }
 
   const base64ArrayBuffer = (arrayBuffer: ArrayBuffer) => {
-    return btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer) as any));
+    return btoa(
+      new Uint8Array(arrayBuffer).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ''
+      )
+    );
   }
 
   const generateHTML = async () => {
@@ -59,7 +64,7 @@ export default function Home() {
       body { font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; box-sizing: border-box; flex-direction: column; overflow: hidden; }
       .animated-gradient { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, #FFA07A, #FF4500, #FFD700, #8A2BE2, #000000); background-size: 200% 200%; animation: gradient-animation 25s ease-in-out infinite alternate; filter: blur(50px); z-index: -1; }
       @keyframes gradient-animation { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-      .content-container { z-index: 1; position: relative; text-align: center; background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); width: 100%; max-w-4xl; padding: 2rem; }
+      .content-container { z-index: 1; position: relative; text-align: center; background: white; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); width: 100%; max-width: 4xl; padding: 4rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
       h1 { margin-top: 0; font-size: 2.25rem; line-height: 2.5rem; color: #1f2937; font-weight: 500;}
       p { word-break: break-word; margin-top: 0.5rem; color: #6b7280; text-align: center; }
       button { font-size: 1rem; padding: 1rem 1.5rem; border-radius: 9999px; border: none; background-color: #000; color: #fff; cursor: pointer; transition: background-color 0.3s, transform 0.2s; font-weight: 500; margin-top: 1.5rem; width: 100%; font-size: 1rem; transform: scale(1.0); transition: transform 0.2s; }
@@ -256,5 +261,7 @@ export default function Home() {
     </>
   );
 }
+
+    
 
     
